@@ -6,6 +6,7 @@ data "github_user" "self" {
 }
 
 locals {
+  organisation = "onecx-devops"
   applications = {
     sonarcloud = "39077913"
   }
