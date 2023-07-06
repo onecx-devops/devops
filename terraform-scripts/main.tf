@@ -12,5 +12,5 @@ locals {
 }
 
 module "products" {
-  source = "products/example-product"
+  source = "./products/example-product"
 }

@@ -5,10 +5,10 @@ module "global" {
 module "example-repository" {
   source = "../../modules/repository"
 
-  repository_name           = "example-repository"
-  team_permission           = "maintain"
-  team_id                   = module.example-team.team_id
-  application_ids           = module.global.applications_sonarcloud_id
+  repository_name = "example-repository"
+  team_permission = "maintain"
+  team_id         = module.example-team.team_id
+  application_ids = module.global.applications_sonarcloud_id
 }
 
 module "example-team" {
