@@ -14,7 +14,18 @@ terraform plan
 terraform apply
 ```
 
-## Refresh token
+## Tokens
+
+### Tokens to run terraform
+
+In order to run the terraform scripts you need to set GITHUB_TOKEN as env var. And reset `data "github_user" "self"` 
+in main.tf to your account name. To obtain your GitHub token go to:
+
+Profile &rarr; Developer Settings &rarr; [Personal access tokens (classic)](https://github.com/settings/tokens)
+
+Set also SONARCLOUD_TOKEN as env var. Read next chapter on how to obtain it.
+
+### Sonar token in GitHub
 
 Sonar token can expire, to refresh it replace `SONAR_TOKEN` in GitHub:
 

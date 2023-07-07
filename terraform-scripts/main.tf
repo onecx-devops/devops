@@ -1,5 +1,9 @@
 provider "github" {}
 
+provider "sonarcloud" {
+  organization = local.organisation
+}
+
 data "github_user" "self" {
   username = "pmcpg"
 }
