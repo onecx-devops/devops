@@ -22,6 +22,6 @@ resource "sonarcloud_project" "project" {
 }
 
 resource "sonarcloud_project_main_branch" "main" {
-  project_key = "${var.organisation}_${var.repository_name}"
+  project_key = sonarcloud_project.project.key
   name        = "main"
 }
