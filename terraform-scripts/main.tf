@@ -1,11 +1,9 @@
-provider "github" {}
+provider "github" {
+  owner = local.organisation
+}
 
 provider "sonarcloud" {
   organization = local.organisation
-}
-
-data "github_user" "self" {
-  username = "pmcpg"
 }
 
 locals {

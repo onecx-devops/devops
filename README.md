@@ -18,18 +18,19 @@ terraform apply
 
 ### Tokens to run terraform
 
-In order to run the terraform scripts you need to set `GITHUB_TOKEN` & `SONARCLOUD_TOKEN` as env vars. 
-Also set `data "github_user" "self"` in `main.tf` to your account name. 
+In order to run the terraform scripts you need to set `GITHUB_TOKEN` & `SONARCLOUD_TOKEN` as env vars locally.
 
 To obtain your GitHub token go to:
 
 * Profile &rarr; Developer Settings &rarr; [Personal access tokens (classic)](https://github.com/settings/tokens)
+* Use `export GITHUB_TOKEN=your_token`
 
 To obtain your SonarCloud token go to:
 
-* Use token from SonarCloud [security](https://sonarcloud.io/account/security).  
+* Get token from SonarCloud [security](https://sonarcloud.io/account/security)
+* Use `export SONARCLOUD_TOKEN=your_token`
 
-Sonar token can expire in GitHub, to refresh it replace `SONAR_TOKEN` in GitHub organization:
+Sonar token can expire in GitHub, if so replace `SONAR_TOKEN` in GitHub organization:
 
 Organization &rarr; Settings &rarr; Security &rarr; Secrets and variables &rarr; [Actions](https://github.com/organizations/onecx-devops/settings/secrets/actions)
 
