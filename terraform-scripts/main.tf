@@ -1,8 +1,9 @@
-provider "github" {}
+provider "github" {
+  owner = local.organisation
+}
 
-# Retrieve information about the currently (PAT) authenticated user
-data "github_user" "self" {
-  username = "pmcpg"
+provider "sonarcloud" {
+  organization = local.organisation
 }
 
 locals {
@@ -10,4 +11,8 @@ locals {
   applications = {
     sonarcloud = "39077913"
   }
+}
+
+module "products" {
+  source = "./products/example-product"
 }

@@ -1,0 +1,2 @@
+sonar.projectKey=${local.organisation}_${github_repository.repository.name}
+sonar.organization=${local.organisation}

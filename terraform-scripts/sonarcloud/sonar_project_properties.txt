@@ -1,2 +1,0 @@
-sonar.projectKey=${local.organisation}_${github_repository.quarkus_test.name}
-sonar.organization=${local.organisation}
