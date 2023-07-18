@@ -25,10 +25,35 @@ jobs:
         working-directory: ./terraform-scripts
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
+    #  Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-
+    
+    #- name: Download terraform state file if available
+    #  uses: actions/download-artifact@v2.1.1
+    #  with:
+    #    name: terraformstatefile
+    #  continue-on-error: true
+    
+    - name: Restore cached terraform state file if available
+      uses: actions/cache/restore@v3
+      with:
+        key: terraformstatefile
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
+      continue-on-error: true
+    
+    - name: List files in the directory (before decrypt)
+      run: |
+        ls .
+      
+    - name: Decrypt terraform state file
+      run: openssl enc -d -in ./terraform.tfstate.enc -aes-256-cbc -pbkdf2 -pass pass:"${{ secrets.ENCRYPTIONKEY }}" -out ./terraform.tfstate
+      continue-on-error: true
+      
+    - name: List files in the directory (after decrypt)
+      run: | 
+        ls .
+    
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -39,10 +64,17 @@ jobs:
     - name: Terraform Format
       run: terraform fmt -check
       continue-on-error: true
+    
+    - name: Check file existence of tfstate file
+      id: check_files
+      uses: andstor/file-existence-action@v1
+      with:
+        files: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init
+      # if: steps.check_files.outputs.files_exists != 'true'
+      run: terraform init -force-copy
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
@@ -54,5 +86,50 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.TKN }}
         SONARCLOUD_TOKEN: ${{ secrets.SNR }}
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false
+      continue-on-error: true
+   
+    - name: Content list
+      uses: enricomarino/actions@v2
+      with:
+        # The folder to inspect
+        source: .
+      continue-on-error: true
+        
+    - name: Content list
+      uses: enricomarino/actions@v2
+      with:
+        # The folder to inspect
+        source: ./terraform-scripts
+      continue-on-error: true
+   
+    - name: Encrypt terraform state file (terraform-files directory)
+      run: openssl enc -in ./terraform-scripts/terraform.tfstate -aes-256-cbc -pbkdf2 -pass pass:"${{ secrets.ENCRYPTIONKEY }}" -out ./terraform.tfstate.enc
+      continue-on-error: true
+   
+    - name: Encrypt terraform state file
+      run: openssl enc -in ./terraform.tfstate -aes-256-cbc -pbkdf2 -pass pass:"${{ secrets.ENCRYPTIONKEY }}" -out ./terraform.tfstate.enc
+      continue-on-error: true
+    
+    - name: List files in the directory
+      run: |
+        ls .
+        
+    - name: PWD in directory
+      run: |
+        pwd
+        
+    - name: Save terraform state file to cache
+      uses: actions/cache/save@v3
+      with:
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
+        key: terraformstatefile
+      continue-on-error: true
+            
+    - name: Upload terraform state file
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: terraformstatefile
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
+      continue-on-error: true
