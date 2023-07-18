@@ -15,7 +15,7 @@ module "example-team" {
   source = "../../modules/team"
 
   team_name        = "example-team"
-  team_description = "example description"
+  team_description = "example team description"
   team_file_path   = "products/example-product/team.csv"
   repository_name  = module.example-repository.repository_name
   repository_id    = module.example-repository.repository_id
