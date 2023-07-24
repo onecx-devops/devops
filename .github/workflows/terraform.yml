@@ -53,6 +53,8 @@ jobs:
         run: terraform plan -input=false
       
       - name: Terraform Apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.TKN }}
         run: terraform apply -auto-approve -input=false
         
       - name: Save plain terraform state file to cache
