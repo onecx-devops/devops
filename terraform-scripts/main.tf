@@ -30,7 +30,7 @@ terraform {
 
 
 resource "github_repository" "repository" {
-  name         = "asdf-new"
+  name         = "asdf"
   has_issues   = true
   has_projects = true
   auto_init    = true
