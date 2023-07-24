@@ -39,3 +39,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TKN }}
         run: terraform apply -auto-approve -input=false
+        
+      - name: Upload terraform lock file to artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: terraform_lock
+          path: /home/runner/work/devops/devops/terraform-scripts/.terraform.lock.hcl
+        continue-on-error: true
