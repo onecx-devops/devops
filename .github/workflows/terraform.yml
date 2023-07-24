@@ -8,9 +8,7 @@ on:
 
 permissions:
   contents: read
-defaults:
-  run:
-    working-directory: terraform-scripts
+
 jobs:
   terraform:
     name: 'Terraform'
@@ -19,14 +17,20 @@ jobs:
     
     permissions:
       pull-requests: write
-
+    
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform-scripts
+    
     steps:
       - uses: hashicorp/setup-terraform@v2
       
-      - name: List files in the directory (after decrypt)
+      - name: PWD in directory
         run: | 
           pwd
-      - name: List files in the directory (after decrypt)
+          
+      - name: List files in the directory
         run: | 
           ls .
       
