@@ -30,13 +30,7 @@ jobs:
       
       - name: Terraform Init
         id: init
-        run: terraform init \
-          -backend-config="access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" \
-          -backend-config="secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
-          -backend-config="bucket=onecx-terraform-devops" \
-          -backend-config="key=state/terraform.tfstate" \
-          -backend-config="region=eu-central-1" \
-          -backend-config="encrypt=true" \
+        run: terraform init -backend-config="access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -backend-config="./config.s3.tfbackend"
         
       - name: Terraform Plan
         run: terraform plan -input=false
