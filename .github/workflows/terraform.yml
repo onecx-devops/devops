@@ -28,7 +28,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
     
-      - uses: hashicorp/setup-terraform@v2
+      #- uses: hashicorp/setup-terraform@v2
       
       - name: PWD in directory
         run: | 
