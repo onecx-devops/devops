@@ -41,7 +41,7 @@ jobs:
       - name: Restore cached terraform state file 
         uses: actions/cache/restore@v3
         with:
-          key: terraformlockfiledec
+          key: terraformstatefiledec
           path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
         continue-on-error: true
       
