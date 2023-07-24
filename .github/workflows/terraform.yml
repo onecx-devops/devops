@@ -38,6 +38,26 @@ jobs:
         run: | 
           ls .
       
+      - name: Restore cached terraform state file 
+        uses: actions/cache/restore@v3
+        with:
+          key: terraformlockfiledec
+          path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
+        continue-on-error: true
+      
       - name: Terraform Init
         id: init
         run: terraform init
+        
+      - name: Terraform Plan
+        run: terraform plan
+      
+      - name: Terraform Apply
+        run: terraform apply
+        
+      - name: Save plain terraform state file to cache
+        uses: actions/cache/save@v3
+        with:
+          path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
+          key: terraformstatefiledec
+        continue-on-error: true
