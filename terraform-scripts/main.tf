@@ -1,8 +1,6 @@
 terraform {
 
-  backend "s3" {
-
-  }
+  backend "s3" {}
 }
 
 provider "github" {
@@ -22,12 +20,4 @@ locals {
 
 module "products" {
   source = "./products/example-product"
-}
-
-
-resource "github_repository" "repository" {
-  name         = "asdf"
-  has_issues   = true
-  has_projects = true
-  auto_init    = true
 }
