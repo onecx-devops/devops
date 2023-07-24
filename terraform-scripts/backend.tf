@@ -1,9 +1,9 @@
-terraform {
-  backend "remote" {
-    organization = "onecx-devops"
-
-    workspaces {
-      name = "devops"
-    }
-  }
-}
+#terraform {
+#  backend "remote" {
+#    organization = "onecx-devops"
+#
+#    workspaces {
+#      name = "devops"
+#    }
+#  }
+#}
