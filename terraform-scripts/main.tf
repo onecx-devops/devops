@@ -18,7 +18,7 @@ locals {
 #}
 
 resource "github_repository" "repository" {
-  name         = "asdf"
+  name         = "asdf-new"
   has_issues   = true
   has_projects = true
   auto_init    = true
