@@ -42,11 +42,10 @@ jobs:
         path: /home/runner/work/devops/devops/terraform-scripts/.terraform.lock.hcl
       continue-on-error: true
       
-          
     - name: Restore cached terraform state file 
       uses: actions/cache/restore@v3
       with:
-        key: terraformlockfile
+        key: terraformlockfiledec
         path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
       continue-on-error: true
     
@@ -142,6 +141,13 @@ jobs:
         path: /home/runner/work/devops/devops/terraform-scripts/.terraform.lock.hcl
         key: terraformlockfile
       continue-on-error: true
+      
+    - name: Save plain terraform state file to cache
+      uses: actions/cache/save@v3
+      with:
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
+        key: terraformstatefiledec
+      continue-on-error: true
             
     - name: Upload terraform state file
       uses: actions/upload-artifact@v3.1.2
@@ -149,10 +155,17 @@ jobs:
         name: terraformstatefile
         path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
       continue-on-error: true
-      
-    - name: Upload terraform state file
+    
+    - name: Upload terraform state file to artifact
       uses: actions/upload-artifact@v3.1.2
       with:
         name: terraformstatefiledec
         path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
+      continue-on-error: true
+    
+    - name: Upload terraform state file to artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: terraformstatefileenc
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
       continue-on-error: true
