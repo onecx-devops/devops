@@ -38,6 +38,7 @@ jobs:
       - name: Terraform Apply
         env:
           GITHUB_TOKEN: ${{ secrets.TKN }}
+          SONARCLOUD_TOKEN: ${{ secrets.SNR }}
         run: terraform apply -auto-approve -input=false
         
       - name: Upload terraform lock file to artifact
