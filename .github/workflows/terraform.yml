@@ -35,11 +35,19 @@ jobs:
     #    name: terraformstatefile
     #  continue-on-error: true
     
-    - name: Restore cached terraform state file if available
+    - name: Restore cached terraform lock file if available
       uses: actions/cache/restore@v3
       with:
         key: terraformstatefile
-        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
+        path: /home/runner/work/devops/devops/terraform-scripts/.terraform.lock.hcl
+      continue-on-error: true
+      
+          
+    - name: Restore cached terraform state file 
+      uses: actions/cache/restore@v3
+      with:
+        key: terraformlockfile
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
       continue-on-error: true
     
     - name: List files in the directory (before decrypt)
@@ -59,8 +67,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         version: 1.5.1
-      #with:
-      #  cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
         
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
@@ -128,10 +135,24 @@ jobs:
         path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
         key: terraformstatefile
       continue-on-error: true
+      
+    - name: Save terraform lock file to cache
+      uses: actions/cache/save@v3
+      with:
+        path: /home/runner/work/devops/devops/terraform-scripts/.terraform.lock.hcl
+        key: terraformlockfile
+      continue-on-error: true
             
     - name: Upload terraform state file
       uses: actions/upload-artifact@v3.1.2
       with:
         name: terraformstatefile
         path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate.enc
+      continue-on-error: true
+      
+    - name: Upload terraform state file
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: terraformstatefiledec
+        path: /home/runner/work/devops/devops/terraform-scripts/terraform.tfstate
       continue-on-error: true
