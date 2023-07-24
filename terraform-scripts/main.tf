@@ -1,10 +1,17 @@
+terraform {
+
+  backend "s3" {
+
+  }
+}
+
 provider "github" {
   owner = local.organisation
 }
 
-#provider "sonarcloud" {
-#  organization = local.organisation
-#}
+provider "sonarcloud" {
+  organization = local.organisation
+}
 
 locals {
   organisation = "onecx-devops"
@@ -13,19 +20,8 @@ locals {
   }
 }
 
-#module "products" {
-#  source = "./products/example-product"
-#}
-
-terraform {
-
-  backend "s3" {
-
-    bucket = "onecx-terraform-devops"
-    key = "state/terraform.tfstate"
-    region = "eu-central-1"
-    encrypt = true
-  }
+module "products" {
+  source = "./products/example-product"
 }
 
 
