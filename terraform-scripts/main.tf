@@ -2,9 +2,9 @@ provider "github" {
   owner = local.organisation
 }
 
-provider "sonarcloud" {
-  organization = local.organisation
-}
+#provider "sonarcloud" {
+#  organization = local.organisation
+#}
 
 locals {
   organisation = "onecx-devops"
@@ -13,6 +13,13 @@ locals {
   }
 }
 
-module "products" {
-  source = "./products/example-product"
+#module "products" {
+#  source = "./products/example-product"
+#}
+
+resource "github_repository" "repository" {
+  name         = "asdf"
+  has_issues   = true
+  has_projects = true
+  auto_init    = true
 }
