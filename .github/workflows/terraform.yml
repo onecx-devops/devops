@@ -22,7 +22,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./terraform-scripts
+        working-directory: terraform-scripts
 
     steps:
       - uses: hashicorp/setup-terraform@v2
