@@ -17,6 +17,18 @@ locals {
 #  source = "./products/example-product"
 #}
 
+terraform {
+
+  backend "s3" {
+
+    bucket = "onecx-terraform-devops"
+    key = "state/terraform.tfstate"
+    region = "eu-central-1"
+    encrypt = true
+  }
+}
+
+
 resource "github_repository" "repository" {
   name         = "asdf-new"
   has_issues   = true
