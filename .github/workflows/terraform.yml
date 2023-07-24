@@ -23,6 +23,13 @@ jobs:
     steps:
       - uses: hashicorp/setup-terraform@v2
       
+      - name: List files in the directory (after decrypt)
+        run: | 
+          pwd
+      - name: List files in the directory (after decrypt)
+        run: | 
+          ls .
+      
       - name: Terraform Init
         id: init
         run: terraform init
