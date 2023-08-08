@@ -1,6 +1,11 @@
 terraform {
+  cloud {
+    organization = "onecx-devops"
 
-  backend "s3" {}
+    workspaces {
+      name = "devops"
+    }
+  }
 }
 
 provider "github" {
