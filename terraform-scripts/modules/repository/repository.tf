@@ -35,9 +35,3 @@ resource "github_team_repository" "team" {
   team_id    = var.team_id
   permission = var.team_permission
 }
-
-resource "github_app_installation_repository" "app_installation_repository" {
-  for_each        = {for app in [var.application_ids] : app => app}
-  repository      = github_repository.repository.name
-  installation_id = each.value
-}
