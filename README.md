@@ -1,7 +1,7 @@
 # Manage GitHub repositories
 
 This repository automates the provisioning and management of GitHub repositories and teams. It provides Terraform 
-modules for defining repositories, teams, and applications, enabling version-controlled, scalable management 
+modules for defining repositories, teams and applications, enabling version-controlled, scalable management 
 of collaborative projects or products.
 
 # Getting started
