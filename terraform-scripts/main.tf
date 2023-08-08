@@ -1,3 +1,13 @@
+terraform {
+  cloud {
+    organization = "onecx-devops"
+
+    workspaces {
+      name = "devops"
+    }
+  }
+}
+
 provider "github" {
   owner = local.organisation
 }
